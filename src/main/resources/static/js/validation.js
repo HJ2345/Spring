@@ -188,7 +188,7 @@ document.addEventListener('DOMContentLoaded', function(){
         const data = await response.json();
         console.log(data);
 
-        if(data.result > 0){
+        if(data){
             emailResult.innerText = '이메일이 인증 되었습니다.';
             emailResult.style.color = 'green';
             isEmailOk = true;
@@ -255,7 +255,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
         // 5) 이메일 유효성 검사 결과
         if(!isEmailOk){
-            //return false;
+            return false;
         }
 
         // 6) 휴대폰 유효성 검사 결과

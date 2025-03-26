@@ -21,7 +21,7 @@ public class SecurityConfig {
         // 로그인 설정
         http.formLogin(login -> login
                 .loginPage("/user/login")
-                .defaultSuccessUrl("/")//성공url
+                .defaultSuccessUrl("/")
                 .failureUrl("/user/login?code=100")
                 .usernameParameter("uid")
                 .passwordParameter("pass"));
@@ -37,12 +37,14 @@ public class SecurityConfig {
              - MyUserDetails 권한 목록 생성하는 메서드(getAuthorities)에서 접두어로 ROLE_ 입력해야 hasRole, hasAnyRole 권한 처리됨
              - Spring Security는 기본적으로 인가 페이지 대해 login 페이지로 redirect 수행
         */
-        /*http.authorizeHttpRequests(authorize -> authorize
+        http.authorizeHttpRequests(authorize -> authorize
                 .requestMatchers("/").permitAll()
                 .requestMatchers("/admin/**").hasRole("ADMIN")
                 .requestMatchers("/manager/**").hasAnyRole("ADMIN", "MANAGER")
                 .requestMatchers("/staff/**").hasAnyRole("ADMIN", "MANAGER", "STAFF")
-                .anyRequest().permitAll());*/
+                .requestMatchers("/article/**").authenticated()
+                .requestMatchers("/user/**").permitAll()
+                .anyRequest().permitAll());
 
         // 기타 보안 설정
         http.csrf(AbstractHttpConfigurer::disable);
